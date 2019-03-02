@@ -203,3 +203,6 @@ res$plot %>% gridExtra::marrangeGrob(nrow = 2, ncol = 2)
 
 ## 参考資料
 
+- [purrr関数リファレンス](https://purrr.tidyverse.org/reference/index.html)
+- [prophet 本家Web site](https://facebook.github.io/prophet/)
+- [ggplot2 関数リファレンス](https://ggplot2.tidyverse.org/reference/)

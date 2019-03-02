@@ -146,3 +146,5 @@ knitr::kable(head(res_a))
 
 ## 参考資料
 
+- [dplyr 関数リファレンス](https://dplyr.tidyverse.org/reference/index.html)
+- [tidyr 関数リファレンス](https://tidyr.tidyverse.org/reference/index.html)

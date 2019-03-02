@@ -180,3 +180,5 @@ knitr::kable(head(df_5_fromto, 20))
 
 ## 参考資料
 
+- [dplyr 関数リファレンス](https://dplyr.tidyverse.org/reference/index.html)
+- [lubridate 関数リファレンス](https://lubridate.tidyverse.org/reference/index.html)

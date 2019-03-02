@@ -48,7 +48,7 @@ for (i in 1:10) {
 ```{r}
 # csvが入っているディレクトリからCSVファイル名を取得
 csv_fname <- dir("data", full.names = TRUE) %>% 
-  str_subset(".csv$")
+  str_subset("\\.csv$")
 
 # 読み込み関数を定義
 r_csv_w_fname <- function(path) {
@@ -90,7 +90,7 @@ knitr::kable(sample_n(df, 10))
 
 ```{r}
 csv_fname <- dir("data", full.names = TRUE) %>% 
-  str_subset(".csv$")
+  str_subset("\\.csv$")
 ```
 
 やり方は色々あるでしょうが、私はだいいたいこんな感じでやります。 `stringr::str_subset()` は文字列ベクトルからパターンにマッチした文字列を残します。また、ファイル名だけではパスとして不十分なので、`dir`関数の`full.names`引数でフルパスを取得するようにしています。
@@ -127,3 +127,5 @@ df <- map_dfr(csv_fname, r_csv_w_fname)
 また、自作関数内で処理を加えれば、いろいろなことができるでしょう。
 
 ## 参考資料
+
+- [purrr関数リファレンス](https://purrr.tidyverse.org/reference/index.html)

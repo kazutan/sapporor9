@@ -221,7 +221,7 @@ tmp_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 <p>こんな感じです:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># csvが入っているディレクトリからCSVファイル名を取得</span>
 csv_fname &lt;-<span class="st"> </span><span class="kw">dir</span>(<span class="st">&quot;data&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;.csv$&quot;</span>)
+<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.csv$&quot;</span>)
 
 <span class="co"># 読み込み関数を定義</span>
 r_csv_w_fname &lt;-<span class="st"> </span><span class="cf">function</span>(path) {
@@ -352,7 +352,7 @@ knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">sa
 <h3><span class="header-section-number">2.3.2</span> 手順</h3>
 <p>まずはcsvファイルのパスを準備します:</p>
 <pre class="sourceCode r"><code class="sourceCode r">csv_fname &lt;-<span class="st"> </span><span class="kw">dir</span>(<span class="st">&quot;data&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;.csv$&quot;</span>)</code></pre>
+<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.csv$&quot;</span>)</code></pre>
 <p>やり方は色々あるでしょうが、私はだいいたいこんな感じでやります。 <code>stringr::str_subset()</code> は文字列ベクトルからパターンにマッチした文字列を残します。また、ファイル名だけではパスとして不十分なので、<code>dir</code>関数の<code>full.names</code>引数でフルパスを取得するようにしています。</p>
 <p>｢読み込んでデータを加工する｣を繰り返すのでforループしかないと思うかもしれませんが、自分で関数を定義して準備するといいでしょう:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 読み込み関数を定義</span>
@@ -378,6 +378,9 @@ r_csv_w_fname &lt;-<span class="st"> </span><span class="cf">function</span>(pat
 </div>
 <div id="参考資料-2" class="section level2">
 <h2><span class="header-section-number">2.4</span> 参考資料</h2>
+<ul>
+<li><a href="https://purrr.tidyverse.org/reference/index.html">purrr関数リファレンス</a></li>
+</ul>
 
 </div>
 </div>
