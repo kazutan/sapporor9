@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>1 Case 1: multi-gather/spread問題 | データハンドリングFAQ</title>
+  <meta name="description" content="1 Case 1: multi-gather/spread問題 | データハンドリングFAQ">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="1 Case 1: multi-gather/spread問題 | データハンドリングFAQ" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Case 1: multi-gather/spread問題 | データハンドリングFAQ" />
+  
+  
+  
+
+<meta name="author" content="前田和寛(@kazutan)">
+
+
+<meta name="date" content="2019-03-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="02_case_two.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">データハンドリングFAQ</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>はじめに</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#参考資料"><i class="fa fa-check"></i>参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="01_case_one.html"><a href="01_case_one.html"><i class="fa fa-check"></i><b>1</b> Case 1: multi-gather/spread問題</a><ul>
+<li class="chapter" data-level="1.1" data-path="01_case_one.html"><a href="01_case_one.html#question-1"><i class="fa fa-check"></i><b>1.1</b> Question 1</a></li>
+<li class="chapter" data-level="1.2" data-path="01_case_one.html"><a href="01_case_one.html#answer"><i class="fa fa-check"></i><b>1.2</b> Answer</a></li>
+<li class="chapter" data-level="1.3" data-path="01_case_one.html"><a href="01_case_one.html#解説"><i class="fa fa-check"></i><b>1.3</b> 解説</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="01_case_one.html"><a href="01_case_one.html#考え方"><i class="fa fa-check"></i><b>1.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="1.3.2" data-path="01_case_one.html"><a href="01_case_one.html#手順"><i class="fa fa-check"></i><b>1.3.2</b> 手順</a></li>
+<li class="chapter" data-level="1.3.3" data-path="01_case_one.html"><a href="01_case_one.html#応用"><i class="fa fa-check"></i><b>1.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="01_case_one.html"><a href="01_case_one.html#参考資料-1"><i class="fa fa-check"></i><b>1.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="02_case_two.html"><a href="02_case_two.html"><i class="fa fa-check"></i><b>2</b> Case 2: ファイル一気読み問題</a><ul>
+<li class="chapter" data-level="2.1" data-path="02_case_two.html"><a href="02_case_two.html#question-2"><i class="fa fa-check"></i><b>2.1</b> Question 2</a></li>
+<li class="chapter" data-level="2.2" data-path="02_case_two.html"><a href="02_case_two.html#answer-1"><i class="fa fa-check"></i><b>2.2</b> Answer</a></li>
+<li class="chapter" data-level="2.3" data-path="02_case_two.html"><a href="02_case_two.html#解説-1"><i class="fa fa-check"></i><b>2.3</b> 解説</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="02_case_two.html"><a href="02_case_two.html#考え方-1"><i class="fa fa-check"></i><b>2.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="2.3.2" data-path="02_case_two.html"><a href="02_case_two.html#手順-1"><i class="fa fa-check"></i><b>2.3.2</b> 手順</a></li>
+<li class="chapter" data-level="2.3.3" data-path="02_case_two.html"><a href="02_case_two.html#応用-1"><i class="fa fa-check"></i><b>2.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="02_case_two.html"><a href="02_case_two.html#参考資料-2"><i class="fa fa-check"></i><b>2.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="04_case_four.html"><a href="04_case_four.html"><i class="fa fa-check"></i><b>3</b> Case 3: Nested df問題</a><ul>
+<li class="chapter" data-level="3.1" data-path="04_case_four.html"><a href="04_case_four.html#question-3"><i class="fa fa-check"></i><b>3.1</b> Question 3</a></li>
+<li class="chapter" data-level="3.2" data-path="04_case_four.html"><a href="04_case_four.html#answer-2"><i class="fa fa-check"></i><b>3.2</b> Answer</a></li>
+<li class="chapter" data-level="3.3" data-path="04_case_four.html"><a href="04_case_four.html#解説-2"><i class="fa fa-check"></i><b>3.3</b> 解説</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="04_case_four.html"><a href="04_case_four.html#考え方-2"><i class="fa fa-check"></i><b>3.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="3.3.2" data-path="04_case_four.html"><a href="04_case_four.html#手順-2"><i class="fa fa-check"></i><b>3.3.2</b> 手順</a></li>
+<li class="chapter" data-level="3.3.3" data-path="04_case_four.html"><a href="04_case_four.html#応用-2"><i class="fa fa-check"></i><b>3.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="04_case_four.html"><a href="04_case_four.html#参考資料-3"><i class="fa fa-check"></i><b>3.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="05_case_five.html"><a href="05_case_five.html"><i class="fa fa-check"></i><b>4</b> Case 4: window関数問題</a><ul>
+<li class="chapter" data-level="4.1" data-path="05_case_five.html"><a href="05_case_five.html#question-4"><i class="fa fa-check"></i><b>4.1</b> Question 4</a></li>
+<li class="chapter" data-level="4.2" data-path="05_case_five.html"><a href="05_case_five.html#answer-3"><i class="fa fa-check"></i><b>4.2</b> Answer</a></li>
+<li class="chapter" data-level="4.3" data-path="05_case_five.html"><a href="05_case_five.html#解説-3"><i class="fa fa-check"></i><b>4.3</b> 解説</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="05_case_five.html"><a href="05_case_five.html#考え方-3"><i class="fa fa-check"></i><b>4.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="4.3.2" data-path="05_case_five.html"><a href="05_case_five.html#手順-3"><i class="fa fa-check"></i><b>4.3.2</b> 手順</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="05_case_five.html"><a href="05_case_five.html#応用-3"><i class="fa fa-check"></i><b>4.4</b> 応用</a></li>
+<li class="chapter" data-level="4.5" data-path="05_case_five.html"><a href="05_case_five.html#参考資料-4"><i class="fa fa-check"></i><b>4.5</b> 参考資料</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">データハンドリングFAQ</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="case-1-multi-gatherspread問題" class="section level1">
+<h1><span class="header-section-number">1</span> Case 1: multi-gather/spread問題</h1>
+<div id="question-1" class="section level2">
+<h2><span class="header-section-number">1.1</span> Question 1</h2>
+<p>以下のようなデータがあります:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 資料を読んでる人が再現できるように、データ生成用コードも残しときます</span>
+n =<span class="st"> </span><span class="dv">30</span>
+df_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">id =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),
+  <span class="dt">group =</span> <span class="kw">rep</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">10</span>),
+  <span class="dt">x_pre =</span> <span class="kw">round</span>(<span class="kw">rnorm</span>(n) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>),
+  <span class="dt">x_post =</span> <span class="kw">round</span>(<span class="kw">rnorm</span>(n, <span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>),
+  <span class="dt">y_pre =</span> <span class="kw">round</span>(<span class="kw">rnorm</span>(n, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>),
+  <span class="dt">y_post =</span> <span class="kw">round</span>(<span class="kw">rnorm</span>(n, <span class="dv">3</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)
+)
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(df_<span class="dv">1</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">group</th>
+<th align="right">x_pre</th>
+<th align="right">x_post</th>
+<th align="right">y_pre</th>
+<th align="right">y_post</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">a</td>
+<td align="right">-148</td>
+<td align="right">122</td>
+<td align="right">-209</td>
+<td align="right">326</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">b</td>
+<td align="right">-54</td>
+<td align="right">-45</td>
+<td align="right">511</td>
+<td align="right">300</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">c</td>
+<td align="right">-100</td>
+<td align="right">253</td>
+<td align="right">67</td>
+<td align="right">212</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">a</td>
+<td align="right">-43</td>
+<td align="right">39</td>
+<td align="right">-336</td>
+<td align="right">198</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">b</td>
+<td align="right">-174</td>
+<td align="right">-8</td>
+<td align="right">29</td>
+<td align="right">328</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">c</td>
+<td align="right">149</td>
+<td align="right">229</td>
+<td align="right">8</td>
+<td align="right">318</td>
+</tr>
+</tbody>
+</table>
+<p>これを、以下のようにしたいです:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">pre_post</th>
+<th align="right">a_x</th>
+<th align="right">a_y</th>
+<th align="right">b_x</th>
+<th align="right">b_y</th>
+<th align="right">c_x</th>
+<th align="right">c_y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">post</td>
+<td align="right">122</td>
+<td align="right">326</td>
+<td align="right">-45</td>
+<td align="right">300</td>
+<td align="right">253</td>
+<td align="right">212</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">pre</td>
+<td align="right">-148</td>
+<td align="right">-209</td>
+<td align="right">-54</td>
+<td align="right">511</td>
+<td align="right">-100</td>
+<td align="right">67</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="right">39</td>
+<td align="right">198</td>
+<td align="right">-8</td>
+<td align="right">328</td>
+<td align="right">229</td>
+<td align="right">318</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">pre</td>
+<td align="right">-43</td>
+<td align="right">-336</td>
+<td align="right">-174</td>
+<td align="right">29</td>
+<td align="right">149</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">post</td>
+<td align="right">123</td>
+<td align="right">76</td>
+<td align="right">180</td>
+<td align="right">398</td>
+<td align="right">134</td>
+<td align="right">219</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">pre</td>
+<td align="right">-58</td>
+<td align="right">-451</td>
+<td align="right">148</td>
+<td align="right">147</td>
+<td align="right">-91</td>
+<td align="right">47</td>
+</tr>
+</tbody>
+</table>
+<p>どうしたらいいのでしょうか?</p>
+</div>
+<div id="answer" class="section level2">
+<h2><span class="header-section-number">1.2</span> Answer</h2>
+<p>以下のようにやります:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+df_<span class="dv">1</span>_result &lt;-df_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> var_name, <span class="dt">value =</span> value, <span class="op">-</span><span class="kw">c</span>(id, group)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(var_name, <span class="kw">c</span>(<span class="st">&quot;var&quot;</span>, <span class="st">&quot;pre_post&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">unite</span>(new_var, group, var) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> new_var, <span class="dt">value =</span> value)
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(df_<span class="dv">1</span>_result))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">pre_post</th>
+<th align="right">a_x</th>
+<th align="right">a_y</th>
+<th align="right">b_x</th>
+<th align="right">b_y</th>
+<th align="right">c_x</th>
+<th align="right">c_y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">post</td>
+<td align="right">122</td>
+<td align="right">326</td>
+<td align="right">-45</td>
+<td align="right">300</td>
+<td align="right">253</td>
+<td align="right">212</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">pre</td>
+<td align="right">-148</td>
+<td align="right">-209</td>
+<td align="right">-54</td>
+<td align="right">511</td>
+<td align="right">-100</td>
+<td align="right">67</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="right">39</td>
+<td align="right">198</td>
+<td align="right">-8</td>
+<td align="right">328</td>
+<td align="right">229</td>
+<td align="right">318</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">pre</td>
+<td align="right">-43</td>
+<td align="right">-336</td>
+<td align="right">-174</td>
+<td align="right">29</td>
+<td align="right">149</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">post</td>
+<td align="right">123</td>
+<td align="right">76</td>
+<td align="right">180</td>
+<td align="right">398</td>
+<td align="right">134</td>
+<td align="right">219</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">pre</td>
+<td align="right">-58</td>
+<td align="right">-451</td>
+<td align="right">148</td>
+<td align="right">147</td>
+<td align="right">-91</td>
+<td align="right">47</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="解説" class="section level2">
+<h2><span class="header-section-number">1.3</span> 解説</h2>
+<div id="考え方" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> 考え方</h3>
+<p>通称｢multi-gather, multi-spread問題｣の一種です。</p>
+<p>wide-long変換をするには<code>tidyr::gather</code>や<code>tidyr::spread</code>を使えばいいのですが、今回は単純にそれらを使うだけではうまく行きません。そこで以下のようなアプローチをします:</p>
+<ol style="list-style-type: decimal">
+<li>一旦tidyなデータ(long data)に整形</li>
+<li>変数名を切り離す</li>
+<li>目的の変数名を作成</li>
+<li>新たに作った変数名をkeyにしてwideに展開</li>
+</ol>
+</div>
+<div id="手順" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> 手順</h3>
+<p>まずはgather:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>df_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> var_name, <span class="dt">value =</span> value, <span class="op">-</span><span class="kw">c</span>(id, group))
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">group</th>
+<th align="left">var_name</th>
+<th align="right">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">a</td>
+<td align="left">x_pre</td>
+<td align="right">-148</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">b</td>
+<td align="left">x_pre</td>
+<td align="right">-54</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">c</td>
+<td align="left">x_pre</td>
+<td align="right">-100</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">a</td>
+<td align="left">x_pre</td>
+<td align="right">-43</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">b</td>
+<td align="left">x_pre</td>
+<td align="right">-174</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">c</td>
+<td align="left">x_pre</td>
+<td align="right">149</td>
+</tr>
+</tbody>
+</table>
+<p>ここからがポイントで、<strong>当初の変数名を2つに切り離します</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(var_name, <span class="kw">c</span>(<span class="st">&quot;var&quot;</span>, <span class="st">&quot;pre_post&quot;</span>))
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">group</th>
+<th align="left">var</th>
+<th align="left">pre_post</th>
+<th align="right">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">a</td>
+<td align="left">x</td>
+<td align="left">pre</td>
+<td align="right">-148</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">b</td>
+<td align="left">x</td>
+<td align="left">pre</td>
+<td align="right">-54</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">c</td>
+<td align="left">x</td>
+<td align="left">pre</td>
+<td align="right">-100</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">a</td>
+<td align="left">x</td>
+<td align="left">pre</td>
+<td align="right">-43</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">b</td>
+<td align="left">x</td>
+<td align="left">pre</td>
+<td align="right">-174</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">c</td>
+<td align="left">x</td>
+<td align="left">pre</td>
+<td align="right">149</td>
+</tr>
+</tbody>
+</table>
+<p>これで要素がちゃんと分かれたデータになりました。そして<strong>目的の変数名になるようひっつけます</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">unite</span>(new_var, group, var)
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">new_var</th>
+<th align="left">pre_post</th>
+<th align="right">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">a_x</td>
+<td align="left">pre</td>
+<td align="right">-148</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">b_x</td>
+<td align="left">pre</td>
+<td align="right">-54</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">c_x</td>
+<td align="left">pre</td>
+<td align="right">-100</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">a_x</td>
+<td align="left">pre</td>
+<td align="right">-43</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">b_x</td>
+<td align="left">pre</td>
+<td align="right">-174</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">c_x</td>
+<td align="left">pre</td>
+<td align="right">149</td>
+</tr>
+</tbody>
+</table>
+<p>あとはこの変数名の列をkeyとしてwideにします:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> new_var, <span class="dt">value =</span> value)
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">pre_post</th>
+<th align="right">a_x</th>
+<th align="right">a_y</th>
+<th align="right">b_x</th>
+<th align="right">b_y</th>
+<th align="right">c_x</th>
+<th align="right">c_y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">post</td>
+<td align="right">122</td>
+<td align="right">326</td>
+<td align="right">-45</td>
+<td align="right">300</td>
+<td align="right">253</td>
+<td align="right">212</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">pre</td>
+<td align="right">-148</td>
+<td align="right">-209</td>
+<td align="right">-54</td>
+<td align="right">511</td>
+<td align="right">-100</td>
+<td align="right">67</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="right">39</td>
+<td align="right">198</td>
+<td align="right">-8</td>
+<td align="right">328</td>
+<td align="right">229</td>
+<td align="right">318</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">pre</td>
+<td align="right">-43</td>
+<td align="right">-336</td>
+<td align="right">-174</td>
+<td align="right">29</td>
+<td align="right">149</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">post</td>
+<td align="right">123</td>
+<td align="right">76</td>
+<td align="right">180</td>
+<td align="right">398</td>
+<td align="right">134</td>
+<td align="right">219</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">pre</td>
+<td align="right">-58</td>
+<td align="right">-451</td>
+<td align="right">148</td>
+<td align="right">147</td>
+<td align="right">-91</td>
+<td align="right">47</td>
+</tr>
+</tbody>
+</table>
+<p>これでOKです。</p>
+</div>
+<div id="応用" class="section level3">
+<h3><span class="header-section-number">1.3.3</span> 応用</h3>
+<p>今回はvalueにあたるデータが全て数値だったのでスムーズでしたが、型が違う場合もあります:</p>
+<pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">30</span>
+df_1a &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">id =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">each =</span> <span class="dv">3</span>),
+  <span class="dt">group =</span> <span class="kw">rep</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">10</span>),
+  <span class="dt">x_pre =</span> <span class="kw">round</span>(<span class="kw">rnorm</span>(n) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>),
+  <span class="dt">x_post =</span> <span class="kw">round</span>(<span class="kw">rnorm</span>(n, <span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>),
+  <span class="dt">y_pre =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;kosaki&quot;</span>, <span class="st">&quot;chitoge&quot;</span>), n, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>)),
+  <span class="dt">y_post =</span> <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;kosaki&quot;</span>, <span class="st">&quot;chitoge&quot;</span>), n, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">1</span>))
+)
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(df_1a))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">group</th>
+<th align="right">x_pre</th>
+<th align="right">x_post</th>
+<th align="left">y_pre</th>
+<th align="left">y_post</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">a</td>
+<td align="right">-34</td>
+<td align="right">383</td>
+<td align="left">chitoge</td>
+<td align="left">kosaki</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">b</td>
+<td align="right">112</td>
+<td align="right">150</td>
+<td align="left">chitoge</td>
+<td align="left">kosaki</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">c</td>
+<td align="right">-70</td>
+<td align="right">152</td>
+<td align="left">chitoge</td>
+<td align="left">chitoge</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">a</td>
+<td align="right">-9</td>
+<td align="right">117</td>
+<td align="left">kosaki</td>
+<td align="left">kosaki</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">b</td>
+<td align="right">156</td>
+<td align="right">191</td>
+<td align="left">chitoge</td>
+<td align="left">kosaki</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">c</td>
+<td align="right">-82</td>
+<td align="right">62</td>
+<td align="left">chitoge</td>
+<td align="left">kosaki</td>
+</tr>
+</tbody>
+</table>
+<p>この場合、まずは気にせずに同じように整形し、あとから列の型を変更すればOKです</p>
+<pre class="sourceCode r"><code class="sourceCode r">res_a &lt;-<span class="st"> </span>df_1a <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># このときvalueがcharacter型になる</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> var_name, <span class="dt">value =</span> value, <span class="op">-</span><span class="kw">c</span>(id, group)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># 気にせず処理</span>
+<span class="st">  </span><span class="kw">separate</span>(var_name, <span class="kw">c</span>(<span class="st">&quot;var&quot;</span>, <span class="st">&quot;pre_post&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">unite</span>(new_var, group, var) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(new_var, value) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># 数値にしたい列を変換</span>
+<span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">ends_with</span>(<span class="st">&quot;_x&quot;</span>)), as.numeric)
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res_a))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">pre_post</th>
+<th align="right">a_x</th>
+<th align="left">a_y</th>
+<th align="right">b_x</th>
+<th align="left">b_y</th>
+<th align="right">c_x</th>
+<th align="left">c_y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">post</td>
+<td align="right">383</td>
+<td align="left">kosaki</td>
+<td align="right">150</td>
+<td align="left">kosaki</td>
+<td align="right">152</td>
+<td align="left">chitoge</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">pre</td>
+<td align="right">-34</td>
+<td align="left">chitoge</td>
+<td align="right">112</td>
+<td align="left">chitoge</td>
+<td align="right">-70</td>
+<td align="left">chitoge</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="right">117</td>
+<td align="left">kosaki</td>
+<td align="right">191</td>
+<td align="left">kosaki</td>
+<td align="right">62</td>
+<td align="left">kosaki</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">pre</td>
+<td align="right">-9</td>
+<td align="left">kosaki</td>
+<td align="right">156</td>
+<td align="left">chitoge</td>
+<td align="right">-82</td>
+<td align="left">chitoge</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">post</td>
+<td align="right">-4</td>
+<td align="left">kosaki</td>
+<td align="right">98</td>
+<td align="left">kosaki</td>
+<td align="right">21</td>
+<td align="left">kosaki</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">pre</td>
+<td align="right">-117</td>
+<td align="left">kosaki</td>
+<td align="right">231</td>
+<td align="left">kosaki</td>
+<td align="right">-48</td>
+<td align="left">kosaki</td>
+</tr>
+</tbody>
+</table>
+<p>以上です。なお個人的には全てtidyにしたいです。</p>
+</div>
+</div>
+<div id="参考資料-1" class="section level2">
+<h2><span class="header-section-number">1.4</span> 参考資料</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="02_case_two.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

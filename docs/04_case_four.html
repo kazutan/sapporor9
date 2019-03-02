@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>3 Case 3: Nested df問題 | データハンドリングFAQ</title>
+  <meta name="description" content="3 Case 3: Nested df問題 | データハンドリングFAQ">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="3 Case 3: Nested df問題 | データハンドリングFAQ" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Case 3: Nested df問題 | データハンドリングFAQ" />
+  
+  
+  
+
+<meta name="author" content="前田和寛(@kazutan)">
+
+
+<meta name="date" content="2019-03-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="02_case_two.html">
+<link rel="next" href="05_case_five.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">データハンドリングFAQ</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>はじめに</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#参考資料"><i class="fa fa-check"></i>参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="01_case_one.html"><a href="01_case_one.html"><i class="fa fa-check"></i><b>1</b> Case 1: multi-gather/spread問題</a><ul>
+<li class="chapter" data-level="1.1" data-path="01_case_one.html"><a href="01_case_one.html#question-1"><i class="fa fa-check"></i><b>1.1</b> Question 1</a></li>
+<li class="chapter" data-level="1.2" data-path="01_case_one.html"><a href="01_case_one.html#answer"><i class="fa fa-check"></i><b>1.2</b> Answer</a></li>
+<li class="chapter" data-level="1.3" data-path="01_case_one.html"><a href="01_case_one.html#解説"><i class="fa fa-check"></i><b>1.3</b> 解説</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="01_case_one.html"><a href="01_case_one.html#考え方"><i class="fa fa-check"></i><b>1.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="1.3.2" data-path="01_case_one.html"><a href="01_case_one.html#手順"><i class="fa fa-check"></i><b>1.3.2</b> 手順</a></li>
+<li class="chapter" data-level="1.3.3" data-path="01_case_one.html"><a href="01_case_one.html#応用"><i class="fa fa-check"></i><b>1.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="01_case_one.html"><a href="01_case_one.html#参考資料-1"><i class="fa fa-check"></i><b>1.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="02_case_two.html"><a href="02_case_two.html"><i class="fa fa-check"></i><b>2</b> Case 2: ファイル一気読み問題</a><ul>
+<li class="chapter" data-level="2.1" data-path="02_case_two.html"><a href="02_case_two.html#question-2"><i class="fa fa-check"></i><b>2.1</b> Question 2</a></li>
+<li class="chapter" data-level="2.2" data-path="02_case_two.html"><a href="02_case_two.html#answer-1"><i class="fa fa-check"></i><b>2.2</b> Answer</a></li>
+<li class="chapter" data-level="2.3" data-path="02_case_two.html"><a href="02_case_two.html#解説-1"><i class="fa fa-check"></i><b>2.3</b> 解説</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="02_case_two.html"><a href="02_case_two.html#考え方-1"><i class="fa fa-check"></i><b>2.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="2.3.2" data-path="02_case_two.html"><a href="02_case_two.html#手順-1"><i class="fa fa-check"></i><b>2.3.2</b> 手順</a></li>
+<li class="chapter" data-level="2.3.3" data-path="02_case_two.html"><a href="02_case_two.html#応用-1"><i class="fa fa-check"></i><b>2.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="02_case_two.html"><a href="02_case_two.html#参考資料-2"><i class="fa fa-check"></i><b>2.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="04_case_four.html"><a href="04_case_four.html"><i class="fa fa-check"></i><b>3</b> Case 3: Nested df問題</a><ul>
+<li class="chapter" data-level="3.1" data-path="04_case_four.html"><a href="04_case_four.html#question-3"><i class="fa fa-check"></i><b>3.1</b> Question 3</a></li>
+<li class="chapter" data-level="3.2" data-path="04_case_four.html"><a href="04_case_four.html#answer-2"><i class="fa fa-check"></i><b>3.2</b> Answer</a></li>
+<li class="chapter" data-level="3.3" data-path="04_case_four.html"><a href="04_case_four.html#解説-2"><i class="fa fa-check"></i><b>3.3</b> 解説</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="04_case_four.html"><a href="04_case_four.html#考え方-2"><i class="fa fa-check"></i><b>3.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="3.3.2" data-path="04_case_four.html"><a href="04_case_four.html#手順-2"><i class="fa fa-check"></i><b>3.3.2</b> 手順</a></li>
+<li class="chapter" data-level="3.3.3" data-path="04_case_four.html"><a href="04_case_four.html#応用-2"><i class="fa fa-check"></i><b>3.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="04_case_four.html"><a href="04_case_four.html#参考資料-3"><i class="fa fa-check"></i><b>3.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="05_case_five.html"><a href="05_case_five.html"><i class="fa fa-check"></i><b>4</b> Case 4: window関数問題</a><ul>
+<li class="chapter" data-level="4.1" data-path="05_case_five.html"><a href="05_case_five.html#question-4"><i class="fa fa-check"></i><b>4.1</b> Question 4</a></li>
+<li class="chapter" data-level="4.2" data-path="05_case_five.html"><a href="05_case_five.html#answer-3"><i class="fa fa-check"></i><b>4.2</b> Answer</a></li>
+<li class="chapter" data-level="4.3" data-path="05_case_five.html"><a href="05_case_five.html#解説-3"><i class="fa fa-check"></i><b>4.3</b> 解説</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="05_case_five.html"><a href="05_case_five.html#考え方-3"><i class="fa fa-check"></i><b>4.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="4.3.2" data-path="05_case_five.html"><a href="05_case_five.html#手順-3"><i class="fa fa-check"></i><b>4.3.2</b> 手順</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="05_case_five.html"><a href="05_case_five.html#応用-3"><i class="fa fa-check"></i><b>4.4</b> 応用</a></li>
+<li class="chapter" data-level="4.5" data-path="05_case_five.html"><a href="05_case_five.html#参考資料-4"><i class="fa fa-check"></i><b>4.5</b> 参考資料</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">データハンドリングFAQ</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="case-3-nested-df問題" class="section level1">
+<h1><span class="header-section-number">3</span> Case 3: Nested df問題</h1>
+<div id="question-3" class="section level2">
+<h2><span class="header-section-number">3.1</span> Question 3</h2>
+<p>以下のようなデータがあります:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">57</span>)
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(lubridate)
+<span class="kw">library</span>(prophet)
+start_date =<span class="st"> &quot;2019-01-01&quot;</span>
+n =<span class="st"> </span><span class="dv">100</span>
+df_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">yyyymmdd =</span> <span class="kw">seq</span>(<span class="kw">date</span>(start_date), <span class="kw">date</span>(start_date) <span class="op">+</span><span class="st"> </span><span class="kw">days</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">by =</span> <span class="st">&quot;day&quot;</span>),
+  <span class="dt">y_1 =</span> <span class="kw">sin</span>(n) <span class="op">*</span><span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n), 
+  <span class="dt">y_2 =</span> <span class="kw">sin</span>(n) <span class="op">*</span><span class="st"> </span><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">2</span>, <span class="fl">0.01</span>), 
+  <span class="dt">y_3 =</span> <span class="kw">cos</span>(n) <span class="op">*</span><span class="st"> </span><span class="dv">8</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n)
+)
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(df_<span class="dv">4</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">yyyymmdd</th>
+<th align="right">y_1</th>
+<th align="right">y_2</th>
+<th align="right">y_3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2019-01-01</td>
+<td align="right">-5.757423</td>
+<td align="right">0.4802741</td>
+<td align="right">8.615518</td>
+</tr>
+<tr class="even">
+<td align="left">2019-01-02</td>
+<td align="right">-6.830485</td>
+<td align="right">0.4812141</td>
+<td align="right">5.996507</td>
+</tr>
+<tr class="odd">
+<td align="left">2019-01-03</td>
+<td align="right">-4.441120</td>
+<td align="right">0.4799585</td>
+<td align="right">6.123853</td>
+</tr>
+<tr class="even">
+<td align="left">2019-01-04</td>
+<td align="right">-3.046980</td>
+<td align="right">0.4899672</td>
+<td align="right">7.284474</td>
+</tr>
+<tr class="odd">
+<td align="left">2019-01-05</td>
+<td align="right">-4.922723</td>
+<td align="right">0.4894491</td>
+<td align="right">6.583605</td>
+</tr>
+<tr class="even">
+<td align="left">2019-01-06</td>
+<td align="right">-3.437993</td>
+<td align="right">0.4807437</td>
+<td align="right">9.632790</td>
+</tr>
+</tbody>
+</table>
+<p>このy_*に対して、prophetで予測させて未来のデータもあわせて作成したいです:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">y_var</th>
+<th align="left">ds</th>
+<th align="right">yhat</th>
+<th align="right">yhat_lower</th>
+<th align="right">yhat_upper</th>
+<th align="right">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-01</td>
+<td align="right">-4.988744</td>
+<td align="right">-6.498488</td>
+<td align="right">-3.384716</td>
+<td align="right">-5.757423</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-02</td>
+<td align="right">-5.378460</td>
+<td align="right">-6.842081</td>
+<td align="right">-3.815985</td>
+<td align="right">-6.830485</td>
+</tr>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-03</td>
+<td align="right">-5.113240</td>
+<td align="right">-6.610575</td>
+<td align="right">-3.731660</td>
+<td align="right">-4.441120</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-04</td>
+<td align="right">-4.901305</td>
+<td align="right">-6.258661</td>
+<td align="right">-3.484424</td>
+<td align="right">-3.046980</td>
+</tr>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-05</td>
+<td align="right">-4.663884</td>
+<td align="right">-6.151910</td>
+<td align="right">-3.336566</td>
+<td align="right">-4.922723</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-06</td>
+<td align="right">-4.793852</td>
+<td align="right">-6.307509</td>
+<td align="right">-3.414466</td>
+<td align="right">-3.437993</td>
+</tr>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-07</td>
+<td align="right">-4.998286</td>
+<td align="right">-6.480009</td>
+<td align="right">-3.494410</td>
+<td align="right">-3.673579</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-08</td>
+<td align="right">-4.993733</td>
+<td align="right">-6.425913</td>
+<td align="right">-3.536153</td>
+<td align="right">-5.941644</td>
+</tr>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-09</td>
+<td align="right">-5.383449</td>
+<td align="right">-6.830365</td>
+<td align="right">-4.008951</td>
+<td align="right">-6.092223</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-10</td>
+<td align="right">-5.118228</td>
+<td align="right">-6.462090</td>
+<td align="right">-3.545616</td>
+<td align="right">-4.112209</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="answer-2" class="section level2">
+<h2><span class="header-section-number">3.2</span> Answer</h2>
+<p>こんな感じでOKです:</p>
+<pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="cf">function</span>(d) {
+  <span class="co"># fitting model. ここは各自ががんばってください</span>
+  model &lt;-<span class="st"> </span><span class="kw">prophet</span>(d)
+  <span class="co"># forecast</span>
+  future &lt;-<span class="st"> </span><span class="kw">make_future_dataframe</span>(model, <span class="dt">periods =</span> <span class="dv">7</span>)
+  forecast &lt;-<span class="st"> </span><span class="kw">predict</span>(model, future)
+  <span class="co"># 欲しい部分を抽出して加工</span>
+  res &lt;-<span class="st"> </span>forecast <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">ds =</span> <span class="kw">date</span>(ds)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">select</span>(ds, yhat, yhat_lower, yhat_upper) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">right_join</span>(d)
+  <span class="co"># return</span>
+  <span class="kw">return</span>(res)
+}
+df_<span class="dv">4</span>_result &lt;-<span class="st"> </span>df_<span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> y_var, <span class="dt">value =</span> y, <span class="op">-</span>yyyymmdd) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">ds =</span> yyyymmdd) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(y_var) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fit =</span> <span class="kw">map</span>(data, m)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(y_var, fit) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">unnest</span>()
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(df_<span class="dv">4</span>_result, <span class="dv">10</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">y_var</th>
+<th align="left">ds</th>
+<th align="right">yhat</th>
+<th align="right">yhat_lower</th>
+<th align="right">yhat_upper</th>
+<th align="right">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-01</td>
+<td align="right">-4.988744</td>
+<td align="right">-6.452807</td>
+<td align="right">-3.509133</td>
+<td align="right">-5.757423</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-02</td>
+<td align="right">-5.378460</td>
+<td align="right">-6.912193</td>
+<td align="right">-4.018997</td>
+<td align="right">-6.830485</td>
+</tr>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-03</td>
+<td align="right">-5.113240</td>
+<td align="right">-6.575139</td>
+<td align="right">-3.735088</td>
+<td align="right">-4.441120</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-04</td>
+<td align="right">-4.901305</td>
+<td align="right">-6.342179</td>
+<td align="right">-3.391854</td>
+<td align="right">-3.046980</td>
+</tr>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-05</td>
+<td align="right">-4.663884</td>
+<td align="right">-6.120531</td>
+<td align="right">-3.264734</td>
+<td align="right">-4.922723</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-06</td>
+<td align="right">-4.793852</td>
+<td align="right">-6.252291</td>
+<td align="right">-3.396149</td>
+<td align="right">-3.437993</td>
+</tr>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-07</td>
+<td align="right">-4.998286</td>
+<td align="right">-6.445208</td>
+<td align="right">-3.590837</td>
+<td align="right">-3.673579</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-08</td>
+<td align="right">-4.993733</td>
+<td align="right">-6.497540</td>
+<td align="right">-3.644810</td>
+<td align="right">-5.941644</td>
+</tr>
+<tr class="odd">
+<td align="left">y_1</td>
+<td align="left">2019-01-09</td>
+<td align="right">-5.383449</td>
+<td align="right">-6.968824</td>
+<td align="right">-3.936416</td>
+<td align="right">-6.092223</td>
+</tr>
+<tr class="even">
+<td align="left">y_1</td>
+<td align="left">2019-01-10</td>
+<td align="right">-5.118228</td>
+<td align="right">-6.627071</td>
+<td align="right">-3.736248</td>
+<td align="right">-4.112209</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="解説-2" class="section level2">
+<h2><span class="header-section-number">3.3</span> 解説</h2>
+<div id="考え方-2" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> 考え方</h3>
+<p>典型的なnested-df案件で、<code>purrr::map</code>が本領発揮するケースです。｢繰り返しやること｣は関数化して、それを<code>purrr::map</code>でまとめましょう。</p>
+<p>流れは以下のとおりです:</p>
+<ol style="list-style-type: decimal">
+<li>modelingと必要な値を抽出する処理を関数化</li>
+<li>使うデータセットをtidyに</li>
+<li>nest化</li>
+<li>nest化したデータのそれぞれに準備した関数を当て、その結果を<strong>新たな列としてmutate</strong></li>
+<li>必要な部分だけ取り出してunnest</li>
+</ol>
+</div>
+<div id="手順-2" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> 手順</h3>
+<p>まずはモデリングして整形する関数を作成します:</p>
+<pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="cf">function</span>(d) {
+  <span class="co"># fitting model. ここは各自ががんばってください</span>
+  model &lt;-<span class="st"> </span><span class="kw">prophet</span>(d)
+  <span class="co"># forecast</span>
+  future &lt;-<span class="st"> </span><span class="kw">make_future_dataframe</span>(model, <span class="dt">periods =</span> <span class="dv">7</span>)
+  forecast &lt;-<span class="st"> </span><span class="kw">predict</span>(model, future)
+  <span class="co"># 欲しい部分を抽出して加工</span>
+  res &lt;-<span class="st"> </span>forecast <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">ds =</span> <span class="kw">date</span>(ds)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">select</span>(ds, yhat, yhat_lower, yhat_upper) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">right_join</span>(d)
+  <span class="co"># return</span>
+  <span class="kw">return</span>(res)
+}</code></pre>
+<p>このケースではprophetで予測しています。prophet便利ですよね。関数を作成したら、まずはこの関数単体でちゃんと動くか、実際にデータを渡してテストしてください。なお、ここで関数化している理由はいろいろありますが、このようにモデリング処理を関数化することによって<strong>モデルを修正していくコストを減らず</strong>ことが大きいです。実際モデリングは何度も何度も繰り返すので、メンテしやすくしておくのは大切です。</p>
+<p>あとはデータフローとなります。nest化を行います:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>df_<span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> y_var, <span class="dt">value =</span> y, <span class="op">-</span>yyyymmdd) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">ds =</span> yyyymmdd) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(y_var) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">nest</span>()
+
+res
+<span class="co">#&gt;  # A tibble: 3 x 2</span>
+<span class="co">#&gt;    y_var data              </span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;list&gt;            </span>
+<span class="co">#&gt;  1 y_1   &lt;tibble [100 × 2]&gt;</span>
+<span class="co">#&gt;  2 y_2   &lt;tibble [100 × 2]&gt;</span>
+<span class="co">#&gt;  3 y_3   &lt;tibble [100 × 2]&gt;</span></code></pre>
+<p><code>group_by</code>してから<code>nest</code>することで、データを層別化できます。一部を取り出してみると、こんな感じです:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res<span class="op">$</span>data[[<span class="dv">2</span>]]
+<span class="co">#&gt;  # A tibble: 100 x 2</span>
+<span class="co">#&gt;     ds             y</span>
+<span class="co">#&gt;     &lt;date&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt;   1 2019-01-01 0.480</span>
+<span class="co">#&gt;   2 2019-01-02 0.481</span>
+<span class="co">#&gt;   3 2019-01-03 0.480</span>
+<span class="co">#&gt;   4 2019-01-04 0.490</span>
+<span class="co">#&gt;   5 2019-01-05 0.489</span>
+<span class="co">#&gt;   6 2019-01-06 0.481</span>
+<span class="co">#&gt;   7 2019-01-07 0.473</span>
+<span class="co">#&gt;   8 2019-01-08 0.485</span>
+<span class="co">#&gt;   9 2019-01-09 0.466</span>
+<span class="co">#&gt;  10 2019-01-10 0.484</span>
+<span class="co">#&gt;  # … with 90 more rows</span></code></pre>
+<p>あとは｢各行の<code>data</code>に対してmodeling｣します。ポイントは｢新たな列として、関数処理した結果を追加する｣というイメージです:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fit =</span> <span class="kw">map</span>(data, m))</code></pre>
+<p>今回作成した<code>m</code>という関数は、実測値(<code>y</code>)と予測値(<code>yhat</code>)および予測の上限･下限を含むdata.frameを返します。そのため、以下のような感じになります:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res
+<span class="co">#&gt;  # A tibble: 3 x 3</span>
+<span class="co">#&gt;    y_var data               fit                   </span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;list&gt;             &lt;list&gt;                </span>
+<span class="co">#&gt;  1 y_1   &lt;tibble [100 × 2]&gt; &lt;data.frame [100 × 5]&gt;</span>
+<span class="co">#&gt;  2 y_2   &lt;tibble [100 × 2]&gt; &lt;data.frame [100 × 5]&gt;</span>
+<span class="co">#&gt;  3 y_3   &lt;tibble [100 × 2]&gt; &lt;data.frame [100 × 5]&gt;</span>
+res<span class="op">$</span>fit[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()
+<span class="co">#&gt;            ds      yhat yhat_lower yhat_upper         y</span>
+<span class="co">#&gt;  1 2019-01-01 0.4773502  0.4649810  0.4897357 0.4802741</span>
+<span class="co">#&gt;  2 2019-01-02 0.4805435  0.4670079  0.4934888 0.4812141</span>
+<span class="co">#&gt;  3 2019-01-03 0.4819156  0.4696508  0.4946583 0.4799585</span>
+<span class="co">#&gt;  4 2019-01-04 0.4804376  0.4667566  0.4936465 0.4899672</span>
+<span class="co">#&gt;  5 2019-01-05 0.4870225  0.4744456  0.4993775 0.4894491</span>
+<span class="co">#&gt;  6 2019-01-06 0.4821182  0.4700115  0.4949034 0.4807437</span></code></pre>
+<p>あとは、これを普段使うdata.frameのような感じに展開したいのですが、これは<code>unnest</code>でOKです:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(y_var, fit) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">unnest</span>()</code></pre>
+</div>
+<div id="応用-2" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> 応用</h3>
+<p>今回のデータをy_varをkeyとして横に展開したい場合もあるでしょうが、これはすでにケース1で紹介しているので省略します。</p>
+<p>また多くの場合、これをggplot2などでplotすると思います。これもnest化してやってしまいましょう:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plotする部分を関数化</span>
+f_p  &lt;-<span class="st"> </span><span class="cf">function</span>(df, var_name) {
+  <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> ds)) <span class="op">+</span>
+<span class="st">    </span><span class="co"># geom</span>
+<span class="st">    </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> yhat_lower, <span class="dt">ymax =</span> yhat_upper), <span class="dt">color =</span> <span class="st">&quot;#9999FF&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;#9999FF99&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> yhat), <span class="dt">color =</span> <span class="st">&quot;#0000FF&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> y), <span class="dt">color =</span> <span class="st">&quot;#0000AA&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="co"># scales</span>
+<span class="st">    </span><span class="kw">scale_x_date</span>(<span class="dt">date_labels =</span> <span class="st">&quot;%m-%d&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="co"># theme &amp; labs</span>
+<span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> var_name)
+}
+
+res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(y_var) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">plot =</span> <span class="kw">map2</span>(data, y_var, f_p))
+
+res<span class="op">$</span>plot <span class="op">%&gt;%</span><span class="st"> </span>gridExtra<span class="op">::</span><span class="kw">marrangeGrob</span>(<span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre>
+<p><img src="data_handling_faq_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+</div>
+</div>
+<div id="参考資料-3" class="section level2">
+<h2><span class="header-section-number">3.4</span> 参考資料</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="02_case_two.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="05_case_five.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

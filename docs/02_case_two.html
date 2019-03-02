@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>2 Case 2: ファイル一気読み問題 | データハンドリングFAQ</title>
+  <meta name="description" content="2 Case 2: ファイル一気読み問題 | データハンドリングFAQ">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="2 Case 2: ファイル一気読み問題 | データハンドリングFAQ" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Case 2: ファイル一気読み問題 | データハンドリングFAQ" />
+  
+  
+  
+
+<meta name="author" content="前田和寛(@kazutan)">
+
+
+<meta name="date" content="2019-03-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="01_case_one.html">
+<link rel="next" href="04_case_four.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">データハンドリングFAQ</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>はじめに</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#参考資料"><i class="fa fa-check"></i>参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="01_case_one.html"><a href="01_case_one.html"><i class="fa fa-check"></i><b>1</b> Case 1: multi-gather/spread問題</a><ul>
+<li class="chapter" data-level="1.1" data-path="01_case_one.html"><a href="01_case_one.html#question-1"><i class="fa fa-check"></i><b>1.1</b> Question 1</a></li>
+<li class="chapter" data-level="1.2" data-path="01_case_one.html"><a href="01_case_one.html#answer"><i class="fa fa-check"></i><b>1.2</b> Answer</a></li>
+<li class="chapter" data-level="1.3" data-path="01_case_one.html"><a href="01_case_one.html#解説"><i class="fa fa-check"></i><b>1.3</b> 解説</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="01_case_one.html"><a href="01_case_one.html#考え方"><i class="fa fa-check"></i><b>1.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="1.3.2" data-path="01_case_one.html"><a href="01_case_one.html#手順"><i class="fa fa-check"></i><b>1.3.2</b> 手順</a></li>
+<li class="chapter" data-level="1.3.3" data-path="01_case_one.html"><a href="01_case_one.html#応用"><i class="fa fa-check"></i><b>1.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="01_case_one.html"><a href="01_case_one.html#参考資料-1"><i class="fa fa-check"></i><b>1.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="02_case_two.html"><a href="02_case_two.html"><i class="fa fa-check"></i><b>2</b> Case 2: ファイル一気読み問題</a><ul>
+<li class="chapter" data-level="2.1" data-path="02_case_two.html"><a href="02_case_two.html#question-2"><i class="fa fa-check"></i><b>2.1</b> Question 2</a></li>
+<li class="chapter" data-level="2.2" data-path="02_case_two.html"><a href="02_case_two.html#answer-1"><i class="fa fa-check"></i><b>2.2</b> Answer</a></li>
+<li class="chapter" data-level="2.3" data-path="02_case_two.html"><a href="02_case_two.html#解説-1"><i class="fa fa-check"></i><b>2.3</b> 解説</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="02_case_two.html"><a href="02_case_two.html#考え方-1"><i class="fa fa-check"></i><b>2.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="2.3.2" data-path="02_case_two.html"><a href="02_case_two.html#手順-1"><i class="fa fa-check"></i><b>2.3.2</b> 手順</a></li>
+<li class="chapter" data-level="2.3.3" data-path="02_case_two.html"><a href="02_case_two.html#応用-1"><i class="fa fa-check"></i><b>2.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="02_case_two.html"><a href="02_case_two.html#参考資料-2"><i class="fa fa-check"></i><b>2.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="04_case_four.html"><a href="04_case_four.html"><i class="fa fa-check"></i><b>3</b> Case 3: Nested df問題</a><ul>
+<li class="chapter" data-level="3.1" data-path="04_case_four.html"><a href="04_case_four.html#question-3"><i class="fa fa-check"></i><b>3.1</b> Question 3</a></li>
+<li class="chapter" data-level="3.2" data-path="04_case_four.html"><a href="04_case_four.html#answer-2"><i class="fa fa-check"></i><b>3.2</b> Answer</a></li>
+<li class="chapter" data-level="3.3" data-path="04_case_four.html"><a href="04_case_four.html#解説-2"><i class="fa fa-check"></i><b>3.3</b> 解説</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="04_case_four.html"><a href="04_case_four.html#考え方-2"><i class="fa fa-check"></i><b>3.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="3.3.2" data-path="04_case_four.html"><a href="04_case_four.html#手順-2"><i class="fa fa-check"></i><b>3.3.2</b> 手順</a></li>
+<li class="chapter" data-level="3.3.3" data-path="04_case_four.html"><a href="04_case_four.html#応用-2"><i class="fa fa-check"></i><b>3.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="04_case_four.html"><a href="04_case_four.html#参考資料-3"><i class="fa fa-check"></i><b>3.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="05_case_five.html"><a href="05_case_five.html"><i class="fa fa-check"></i><b>4</b> Case 4: window関数問題</a><ul>
+<li class="chapter" data-level="4.1" data-path="05_case_five.html"><a href="05_case_five.html#question-4"><i class="fa fa-check"></i><b>4.1</b> Question 4</a></li>
+<li class="chapter" data-level="4.2" data-path="05_case_five.html"><a href="05_case_five.html#answer-3"><i class="fa fa-check"></i><b>4.2</b> Answer</a></li>
+<li class="chapter" data-level="4.3" data-path="05_case_five.html"><a href="05_case_five.html#解説-3"><i class="fa fa-check"></i><b>4.3</b> 解説</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="05_case_five.html"><a href="05_case_five.html#考え方-3"><i class="fa fa-check"></i><b>4.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="4.3.2" data-path="05_case_five.html"><a href="05_case_five.html#手順-3"><i class="fa fa-check"></i><b>4.3.2</b> 手順</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="05_case_five.html"><a href="05_case_five.html#応用-3"><i class="fa fa-check"></i><b>4.4</b> 応用</a></li>
+<li class="chapter" data-level="4.5" data-path="05_case_five.html"><a href="05_case_five.html#参考資料-4"><i class="fa fa-check"></i><b>4.5</b> 参考資料</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">データハンドリングFAQ</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="case-2-ファイル一気読み問題" class="section level1">
+<h1><span class="header-section-number">2</span> Case 2: ファイル一気読み問題</h1>
+<div id="question-2" class="section level2">
+<h2><span class="header-section-number">2.1</span> Question 2</h2>
+<p>あるディレクトリ内に、一つのファイルに1人分のデータが入ったcsvファイルがたくさんあります:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">57</span>)
+<span class="kw">library</span>(tidyverse)
+
+<span class="co"># ティレクトリ作成</span>
+<span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(<span class="st">&quot;data&quot;</span>)) {
+  <span class="kw">dir.create</span>(<span class="st">&quot;data&quot;</span>)
+}
+
+<span class="co"># CSVファイルを作成</span>
+<span class="co"># 中身は確認しといてください</span>
+tmp_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+  path &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;data/file_&quot;</span>, LETTERS[i], <span class="st">&quot;.csv&quot;</span>)
+  tmp_df &lt;-<span class="st"> </span><span class="kw">sample_n</span>(iris, <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>))
+  <span class="kw">write.csv</span>(tmp_df, path, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)
+}</code></pre>
+<p>これを一気にまとめて読み込んで、ひとつのデータにまとめたいです。どうしたら一番ラクでしょうか? また、後から確認できるように、<strong>どのファイルから持ってきたデータなのかの情報も加えたいです</strong>。</p>
+</div>
+<div id="answer-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> Answer</h2>
+<p>こんな感じです:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># csvが入っているディレクトリからCSVファイル名を取得</span>
+csv_fname &lt;-<span class="st"> </span><span class="kw">dir</span>(<span class="st">&quot;data&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;.csv$&quot;</span>)
+
+<span class="co"># 読み込み関数を定義</span>
+r_csv_w_fname &lt;-<span class="st"> </span><span class="cf">function</span>(path) {
+  <span class="cf">if</span> (<span class="kw">file.exists</span>(path)) {
+    df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(path)
+    <span class="cf">if</span> (<span class="kw">nrow</span>(df) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {
+      df &lt;-<span class="st"> </span><span class="kw">mutate</span>(df, <span class="dt">fname =</span> path)
+      <span class="kw">return</span>(df)
+    }
+  }
+}
+
+<span class="co"># あとはこの1行でOK</span>
+df &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(csv_fname, r_csv_w_fname)
+
+<span class="co"># 内容を確認</span>
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">sample_n</span>(df, <span class="dv">10</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+<th align="left">fname</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.4</td>
+<td align="right">3.4</td>
+<td align="right">1.5</td>
+<td align="right">0.4</td>
+<td align="left">setosa</td>
+<td align="left">data/file_ J .csv</td>
+</tr>
+<tr class="even">
+<td align="right">6.8</td>
+<td align="right">2.8</td>
+<td align="right">4.8</td>
+<td align="right">1.4</td>
+<td align="left">versicolor</td>
+<td align="left">data/file_ A .csv</td>
+</tr>
+<tr class="odd">
+<td align="right">5.0</td>
+<td align="right">3.4</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+<td align="left">data/file_ J .csv</td>
+</tr>
+<tr class="even">
+<td align="right">6.3</td>
+<td align="right">2.5</td>
+<td align="right">5.0</td>
+<td align="right">1.9</td>
+<td align="left">virginica</td>
+<td align="left">data/file_ J .csv</td>
+</tr>
+<tr class="odd">
+<td align="right">6.7</td>
+<td align="right">3.3</td>
+<td align="right">5.7</td>
+<td align="right">2.1</td>
+<td align="left">virginica</td>
+<td align="left">data/file_ F .csv</td>
+</tr>
+<tr class="even">
+<td align="right">5.2</td>
+<td align="right">3.4</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+<td align="left">data/file_ E .csv</td>
+</tr>
+<tr class="odd">
+<td align="right">6.3</td>
+<td align="right">2.5</td>
+<td align="right">5.0</td>
+<td align="right">1.9</td>
+<td align="left">virginica</td>
+<td align="left">data/file_ G .csv</td>
+</tr>
+<tr class="even">
+<td align="right">6.7</td>
+<td align="right">3.3</td>
+<td align="right">5.7</td>
+<td align="right">2.5</td>
+<td align="left">virginica</td>
+<td align="left">data/file_ G .csv</td>
+</tr>
+<tr class="odd">
+<td align="right">5.5</td>
+<td align="right">2.4</td>
+<td align="right">3.7</td>
+<td align="right">1.0</td>
+<td align="left">versicolor</td>
+<td align="left">data/file_ E .csv</td>
+</tr>
+<tr class="even">
+<td align="right">4.8</td>
+<td align="right">3.4</td>
+<td align="right">1.9</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+<td align="left">data/file_ B .csv</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="解説-1" class="section level2">
+<h2><span class="header-section-number">2.3</span> 解説</h2>
+<div id="考え方-1" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> 考え方</h3>
+<p>通称｢ファイル一気読み問題｣といわれるものです。今回は読み込んでつなげる上に、｢ファイル名の情報を追加しろ｣といわれています。あとから確認できるようにすることはとても大切です。</p>
+<p>基本的な考え方は以下のとおりです:</p>
+<ol style="list-style-type: decimal">
+<li>読み込むファイルのバスを準備</li>
+<li>パスにあるファイルを読み込む</li>
+<li>読み込んだデータにファイル情報を付与</li>
+<li>データを結合</li>
+</ol>
+<p>それでは今回の内容について、順を追って説明します。</p>
+</div>
+<div id="手順-1" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> 手順</h3>
+<p>まずはcsvファイルのパスを準備します:</p>
+<pre class="sourceCode r"><code class="sourceCode r">csv_fname &lt;-<span class="st"> </span><span class="kw">dir</span>(<span class="st">&quot;data&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;.csv$&quot;</span>)</code></pre>
+<p>やり方は色々あるでしょうが、私はだいいたいこんな感じでやります。 <code>stringr::str_subset()</code> は文字列ベクトルからパターンにマッチした文字列を残します。また、ファイル名だけではパスとして不十分なので、<code>dir</code>関数の<code>full.names</code>引数でフルパスを取得するようにしています。</p>
+<p>｢読み込んでデータを加工する｣を繰り返すのでforループしかないと思うかもしれませんが、自分で関数を定義して準備するといいでしょう:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 読み込み関数を定義</span>
+r_csv_w_fname &lt;-<span class="st"> </span><span class="cf">function</span>(path) {
+  <span class="cf">if</span> (<span class="kw">file.exists</span>(path)) {
+    df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(path)
+    <span class="cf">if</span> (<span class="kw">nrow</span>(df) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {
+      df &lt;-<span class="st"> </span><span class="kw">mutate</span>(df, <span class="dt">fname =</span> path)
+      <span class="kw">return</span>(df)
+    }
+  }
+}</code></pre>
+<p>内容はシンプルなので問題ないかとは思います。なおifをつけなくても今回のは動くのですが、ある程度は対処していた方がいいです。あと、<strong>データハンドリングでは自作関数を準備する場面がかなり多いです</strong>。</p>
+<p>関数を準備したので、あとはこの関数にパスを順次送り込んで、返り値を行方向に結合していけばOKです。Rのbaseには<code>apply</code>がありますが、今回は　<code>purrr::map_dfr</code>が断然楽です:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">map_dfr</span>(csv_fname, r_csv_w_fname)</code></pre>
+<p><code>map_dfr</code>関数は<code>map</code> -&gt; <code>as.data.frame</code> -&gt; <code>bind_rows</code> というのを一気にやってくれるイメージです。なお、<code>pam_dfr</code>には<code>bind_rowsと同じく</code>.id`引数があるので、｢単純にどのファイルからやってきているかさえ識別できればいい｣のであれば、関数を定義せずにこれだけでもいいと思います。</p>
+</div>
+<div id="応用-1" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> 応用</h3>
+<p>もしファイルがcsvではなくExcelファイルなどである場合は、read_csvではなく他の読み込み関数を使えばOKです。</p>
+<p>また、自作関数内で処理を加えれば、いろいろなことができるでしょう。</p>
+</div>
+</div>
+<div id="参考資料-2" class="section level2">
+<h2><span class="header-section-number">2.4</span> 参考資料</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="01_case_one.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="04_case_four.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

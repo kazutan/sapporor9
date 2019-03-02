@@ -1,0 +1,205 @@
+---
+title: ケース3
+---
+
+# Case 3: Nested df問題
+
+```{r 04_setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE,
+                      echo = TRUE,
+                      comment = "#> ",
+                      collapse = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+
+## Question 3
+
+以下のようなデータがあります:
+
+```{r}
+set.seed(57)
+library(tidyverse)
+library(lubridate)
+library(prophet)
+start_date = "2019-01-01"
+n = 100
+df_4 <- data.frame(
+  yyyymmdd = seq(date(start_date), date(start_date) + days(n - 1), by = "day"),
+  y_1 = sin(n) * 10 + rnorm(n), 
+  y_2 = sin(n) * 3 + rnorm(n, 2, 0.01), 
+  y_3 = cos(n) * 8 + rnorm(n)
+)
+knitr::kable(head(df_4))
+```
+
+このy_*に対して、prophetで予測させて未来のデータもあわせて作成したいです:
+
+```{r, echo = FALSE}
+m <- function(d) {
+  # fitting model. ここは各自ががんばってください
+  model <- prophet(d)
+  # forecast
+  future <- make_future_dataframe(model, periods = 7)
+  forecast <- predict(model, future)
+  # 欲しい部分を抽出して加工
+  res <- forecast %>% 
+    mutate(ds = date(ds)) %>% 
+    select(ds, yhat, yhat_lower, yhat_upper) %>% 
+    right_join(d)
+  # return
+  return(res)
+}
+df_4_result <- df_4 %>% 
+  gather(key = y_var, value = y, -yyyymmdd) %>% 
+  rename(ds = yyyymmdd) %>% 
+  group_by(y_var) %>% 
+  nest() %>% 
+  mutate(fit = map(data, m)) %>% 
+  select(y_var, fit) %>% 
+  unnest()
+
+knitr::kable(head(df_4_result, 10))
+```
+
+## Answer
+
+こんな感じでOKです:
+
+```{r}
+m <- function(d) {
+  # fitting model. ここは各自ががんばってください
+  model <- prophet(d)
+  # forecast
+  future <- make_future_dataframe(model, periods = 7)
+  forecast <- predict(model, future)
+  # 欲しい部分を抽出して加工
+  res <- forecast %>% 
+    mutate(ds = date(ds)) %>% 
+    select(ds, yhat, yhat_lower, yhat_upper) %>% 
+    right_join(d)
+  # return
+  return(res)
+}
+df_4_result <- df_4 %>% 
+  gather(key = y_var, value = y, -yyyymmdd) %>% 
+  rename(ds = yyyymmdd) %>% 
+  group_by(y_var) %>% 
+  nest() %>% 
+  mutate(fit = map(data, m)) %>% 
+  select(y_var, fit) %>% 
+  unnest()
+
+knitr::kable(head(df_4_result, 10))
+```
+
+## 解説
+
+### 考え方
+
+典型的なnested-df案件で、`purrr::map`が本領発揮するケースです。｢繰り返しやること｣は関数化して、それを`purrr::map`でまとめましょう。
+
+流れは以下のとおりです:
+
+1. modelingと必要な値を抽出する処理を関数化
+2. 使うデータセットをtidyに
+3. nest化
+4. nest化したデータのそれぞれに準備した関数を当て、その結果を**新たな列としてmutate**
+5. 必要な部分だけ取り出してunnest
+
+### 手順
+
+まずはモデリングして整形する関数を作成します:
+
+```{r}
+m <- function(d) {
+  # fitting model. ここは各自ががんばってください
+  model <- prophet(d)
+  # forecast
+  future <- make_future_dataframe(model, periods = 7)
+  forecast <- predict(model, future)
+  # 欲しい部分を抽出して加工
+  res <- forecast %>% 
+    mutate(ds = date(ds)) %>% 
+    select(ds, yhat, yhat_lower, yhat_upper) %>% 
+    right_join(d)
+  # return
+  return(res)
+}
+```
+
+このケースではprophetで予測しています。prophet便利ですよね。関数を作成したら、まずはこの関数単体でちゃんと動くか、実際にデータを渡してテストしてください。なお、ここで関数化している理由はいろいろありますが、このようにモデリング処理を関数化することによって**モデルを修正していくコストを減らず**ことが大きいです。実際モデリングは何度も何度も繰り返すので、メンテしやすくしておくのは大切です。
+
+あとはデータフローとなります。nest化を行います:
+
+```{r}
+res <- df_4 %>% 
+  gather(key = y_var, value = y, -yyyymmdd) %>% 
+  rename(ds = yyyymmdd) %>% 
+  group_by(y_var) %>% 
+  nest()
+
+res
+```
+
+
+`group_by`してから`nest`することで、データを層別化できます。一部を取り出してみると、こんな感じです:
+
+```{r}
+res$data[[2]]
+```
+
+あとは｢各行の`data`に対してmodeling｣します。ポイントは｢新たな列として、関数処理した結果を追加する｣というイメージです:
+
+```{r}
+res <- res %>% 
+  mutate(fit = map(data, m))
+```
+
+今回作成した`m`という関数は、実測値(`y`)と予測値(`yhat`)および予測の上限･下限を含むdata.frameを返します。そのため、以下のような感じになります:
+
+```{r}
+res
+res$fit[[2]] %>% head()
+```
+
+あとは、これを普段使うdata.frameのような感じに展開したいのですが、これは`unnest`でOKです:
+
+```{r}
+res <- res %>% 
+  select(y_var, fit) %>% 
+  unnest()
+```
+
+### 応用
+
+今回のデータをy_varをkeyとして横に展開したい場合もあるでしょうが、これはすでにケース1で紹介しているので省略します。
+
+また多くの場合、これをggplot2などでplotすると思います。これもnest化してやってしまいましょう:
+
+```{r}
+# plotする部分を関数化
+f_p  <- function(df, var_name) {
+  ggplot(df, aes(x = ds)) +
+    # geom
+    geom_ribbon(aes(ymin = yhat_lower, ymax = yhat_upper), color = "#9999FF", fill = "#9999FF99") +
+    geom_line(aes(y = yhat), color = "#0000FF") +
+    geom_point(aes(y = y), color = "#0000AA") +
+    # scales
+    scale_x_date(date_labels = "%m-%d") +
+    # theme & labs
+    theme_bw() +
+    labs(title = var_name)
+}
+
+res <- res %>% 
+  group_by(y_var) %>% 
+  nest() %>% 
+  mutate(plot = map2(data, y_var, f_p))
+
+res$plot %>% gridExtra::marrangeGrob(nrow = 2, ncol = 2)
+```
+
+## 参考資料
+

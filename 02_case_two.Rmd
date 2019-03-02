@@ -1,0 +1,129 @@
+---
+title: ケース2
+---
+
+# Case 2: ファイル一気読み問題
+
+```{r 02_setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE,
+                      echo = TRUE,
+                      comment = "#> ",
+                      collapse = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+library(tidyverse)
+```
+
+
+## Question 2
+
+あるディレクトリ内に、一つのファイルに1人分のデータが入ったcsvファイルがたくさんあります:
+
+```{r}
+set.seed(57)
+library(tidyverse)
+
+# ティレクトリ作成
+if (!dir.exists("data")) {
+  dir.create("data")
+}
+
+# CSVファイルを作成
+# 中身は確認しといてください
+tmp_df <- data.frame()
+for (i in 1:10) {
+  path <- paste("data/file_", LETTERS[i], ".csv")
+  tmp_df <- sample_n(iris, sample(1:4, 1))
+  write.csv(tmp_df, path, row.names = FALSE)
+}
+```
+
+これを一気にまとめて読み込んで、ひとつのデータにまとめたいです。どうしたら一番ラクでしょうか? また、後から確認できるように、**どのファイルから持ってきたデータなのかの情報も加えたいです**。
+
+
+## Answer
+
+こんな感じです:
+
+```{r}
+# csvが入っているディレクトリからCSVファイル名を取得
+csv_fname <- dir("data", full.names = TRUE) %>% 
+  str_subset(".csv$")
+
+# 読み込み関数を定義
+r_csv_w_fname <- function(path) {
+  if (file.exists(path)) {
+    df <- read_csv(path)
+    if (nrow(df) > 0) {
+      df <- mutate(df, fname = path)
+      return(df)
+    }
+  }
+}
+
+# あとはこの1行でOK
+df <- map_dfr(csv_fname, r_csv_w_fname)
+
+# 内容を確認
+knitr::kable(sample_n(df, 10))
+```
+
+
+## 解説
+
+### 考え方
+
+通称｢ファイル一気読み問題｣といわれるものです。今回は読み込んでつなげる上に、｢ファイル名の情報を追加しろ｣といわれています。あとから確認できるようにすることはとても大切です。
+
+基本的な考え方は以下のとおりです:
+
+1. 読み込むファイルのバスを準備
+2. パスにあるファイルを読み込む
+3. 読み込んだデータにファイル情報を付与
+4. データを結合
+
+それでは今回の内容について、順を追って説明します。
+
+### 手順
+
+まずはcsvファイルのパスを準備します:
+
+```{r}
+csv_fname <- dir("data", full.names = TRUE) %>% 
+  str_subset(".csv$")
+```
+
+やり方は色々あるでしょうが、私はだいいたいこんな感じでやります。 `stringr::str_subset()` は文字列ベクトルからパターンにマッチした文字列を残します。また、ファイル名だけではパスとして不十分なので、`dir`関数の`full.names`引数でフルパスを取得するようにしています。
+
+｢読み込んでデータを加工する｣を繰り返すのでforループしかないと思うかもしれませんが、自分で関数を定義して準備するといいでしょう:
+
+```{r}
+# 読み込み関数を定義
+r_csv_w_fname <- function(path) {
+  if (file.exists(path)) {
+    df <- read_csv(path)
+    if (nrow(df) > 0) {
+      df <- mutate(df, fname = path)
+      return(df)
+    }
+  }
+}
+```
+
+内容はシンプルなので問題ないかとは思います。なおifをつけなくても今回のは動くのですが、ある程度は対処していた方がいいです。あと、**データハンドリングでは自作関数を準備する場面がかなり多いです**。
+
+関数を準備したので、あとはこの関数にパスを順次送り込んで、返り値を行方向に結合していけばOKです。Rのbaseには`apply`がありますが、今回は　`purrr::map_dfr`が断然楽です:
+
+```{r}
+df <- map_dfr(csv_fname, r_csv_w_fname)
+```
+
+`map_dfr`関数は`map` -> `as.data.frame` -> `bind_rows` というのを一気にやってくれるイメージです。なお、`pam_dfr`には`bind_rowsと同じく`.id`引数があるので、｢単純にどのファイルからやってきているかさえ識別できればいい｣のであれば、関数を定義せずにこれだけでもいいと思います。
+
+### 応用
+
+もしファイルがcsvではなくExcelファイルなどである場合は、read_csvではなく他の読み込み関数を使えばOKです。
+
+また、自作関数内で処理を加えれば、いろいろなことができるでしょう。
+
+## 参考資料

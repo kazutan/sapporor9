@@ -1,0 +1,9 @@
+#書籍ファイル名
+book_filename: "data_handling_faq"
+#チャプターの枕詞
+#chapter_name: "lesson: "
+#出力先の指定。docsに指定しています
+output_dir: docs
+# セッションごとに切る
+#new_session: true
+

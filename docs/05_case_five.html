@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>4 Case 4: window関数問題 | データハンドリングFAQ</title>
+  <meta name="description" content="4 Case 4: window関数問題 | データハンドリングFAQ">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="4 Case 4: window関数問題 | データハンドリングFAQ" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Case 4: window関数問題 | データハンドリングFAQ" />
+  
+  
+  
+
+<meta name="author" content="前田和寛(@kazutan)">
+
+
+<meta name="date" content="2019-03-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="04_case_four.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">データハンドリングFAQ</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>はじめに</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#参考資料"><i class="fa fa-check"></i>参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="01_case_one.html"><a href="01_case_one.html"><i class="fa fa-check"></i><b>1</b> Case 1: multi-gather/spread問題</a><ul>
+<li class="chapter" data-level="1.1" data-path="01_case_one.html"><a href="01_case_one.html#question-1"><i class="fa fa-check"></i><b>1.1</b> Question 1</a></li>
+<li class="chapter" data-level="1.2" data-path="01_case_one.html"><a href="01_case_one.html#answer"><i class="fa fa-check"></i><b>1.2</b> Answer</a></li>
+<li class="chapter" data-level="1.3" data-path="01_case_one.html"><a href="01_case_one.html#解説"><i class="fa fa-check"></i><b>1.3</b> 解説</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="01_case_one.html"><a href="01_case_one.html#考え方"><i class="fa fa-check"></i><b>1.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="1.3.2" data-path="01_case_one.html"><a href="01_case_one.html#手順"><i class="fa fa-check"></i><b>1.3.2</b> 手順</a></li>
+<li class="chapter" data-level="1.3.3" data-path="01_case_one.html"><a href="01_case_one.html#応用"><i class="fa fa-check"></i><b>1.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="01_case_one.html"><a href="01_case_one.html#参考資料-1"><i class="fa fa-check"></i><b>1.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="02_case_two.html"><a href="02_case_two.html"><i class="fa fa-check"></i><b>2</b> Case 2: ファイル一気読み問題</a><ul>
+<li class="chapter" data-level="2.1" data-path="02_case_two.html"><a href="02_case_two.html#question-2"><i class="fa fa-check"></i><b>2.1</b> Question 2</a></li>
+<li class="chapter" data-level="2.2" data-path="02_case_two.html"><a href="02_case_two.html#answer-1"><i class="fa fa-check"></i><b>2.2</b> Answer</a></li>
+<li class="chapter" data-level="2.3" data-path="02_case_two.html"><a href="02_case_two.html#解説-1"><i class="fa fa-check"></i><b>2.3</b> 解説</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="02_case_two.html"><a href="02_case_two.html#考え方-1"><i class="fa fa-check"></i><b>2.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="2.3.2" data-path="02_case_two.html"><a href="02_case_two.html#手順-1"><i class="fa fa-check"></i><b>2.3.2</b> 手順</a></li>
+<li class="chapter" data-level="2.3.3" data-path="02_case_two.html"><a href="02_case_two.html#応用-1"><i class="fa fa-check"></i><b>2.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="02_case_two.html"><a href="02_case_two.html#参考資料-2"><i class="fa fa-check"></i><b>2.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="04_case_four.html"><a href="04_case_four.html"><i class="fa fa-check"></i><b>3</b> Case 3: Nested df問題</a><ul>
+<li class="chapter" data-level="3.1" data-path="04_case_four.html"><a href="04_case_four.html#question-3"><i class="fa fa-check"></i><b>3.1</b> Question 3</a></li>
+<li class="chapter" data-level="3.2" data-path="04_case_four.html"><a href="04_case_four.html#answer-2"><i class="fa fa-check"></i><b>3.2</b> Answer</a></li>
+<li class="chapter" data-level="3.3" data-path="04_case_four.html"><a href="04_case_four.html#解説-2"><i class="fa fa-check"></i><b>3.3</b> 解説</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="04_case_four.html"><a href="04_case_four.html#考え方-2"><i class="fa fa-check"></i><b>3.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="3.3.2" data-path="04_case_four.html"><a href="04_case_four.html#手順-2"><i class="fa fa-check"></i><b>3.3.2</b> 手順</a></li>
+<li class="chapter" data-level="3.3.3" data-path="04_case_four.html"><a href="04_case_four.html#応用-2"><i class="fa fa-check"></i><b>3.3.3</b> 応用</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="04_case_four.html"><a href="04_case_four.html#参考資料-3"><i class="fa fa-check"></i><b>3.4</b> 参考資料</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="05_case_five.html"><a href="05_case_five.html"><i class="fa fa-check"></i><b>4</b> Case 4: window関数問題</a><ul>
+<li class="chapter" data-level="4.1" data-path="05_case_five.html"><a href="05_case_five.html#question-4"><i class="fa fa-check"></i><b>4.1</b> Question 4</a></li>
+<li class="chapter" data-level="4.2" data-path="05_case_five.html"><a href="05_case_five.html#answer-3"><i class="fa fa-check"></i><b>4.2</b> Answer</a></li>
+<li class="chapter" data-level="4.3" data-path="05_case_five.html"><a href="05_case_five.html#解説-3"><i class="fa fa-check"></i><b>4.3</b> 解説</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="05_case_five.html"><a href="05_case_five.html#考え方-3"><i class="fa fa-check"></i><b>4.3.1</b> 考え方</a></li>
+<li class="chapter" data-level="4.3.2" data-path="05_case_five.html"><a href="05_case_five.html#手順-3"><i class="fa fa-check"></i><b>4.3.2</b> 手順</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="05_case_five.html"><a href="05_case_five.html#応用-3"><i class="fa fa-check"></i><b>4.4</b> 応用</a></li>
+<li class="chapter" data-level="4.5" data-path="05_case_five.html"><a href="05_case_five.html#参考資料-4"><i class="fa fa-check"></i><b>4.5</b> 参考資料</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">データハンドリングFAQ</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="case-4-window関数問題" class="section level1">
+<h1><span class="header-section-number">4</span> Case 4: window関数問題</h1>
+<div id="question-4" class="section level2">
+<h2><span class="header-section-number">4.1</span> Question 4</h2>
+<p>以下のようなログデータがあります:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(lubridate)
+<span class="kw">set.seed</span>(<span class="dv">57</span>)
+n =<span class="st"> </span><span class="dv">1000</span>
+df_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">user_id =</span> <span class="dv">100000</span> <span class="op">+</span><span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+  <span class="dt">shop_id =</span> <span class="kw">sample</span>(<span class="kw">paste</span>(<span class="st">&quot;shop&quot;</span>, <span class="kw">str_pad</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">width =</span> <span class="dv">2</span>, <span class="dt">pad =</span> <span class="st">&quot;0&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>), n, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
+  <span class="dt">dt =</span> <span class="kw">ymd_hms</span>(<span class="st">&quot;2019-02-14 00:00:00&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">days</span>(<span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">27</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">hours</span>(<span class="kw">sample</span>(<span class="dv">17</span><span class="op">:</span><span class="dv">23</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">minutes</span>(<span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">59</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">seconds</span>(<span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">59</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
+)
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(df_<span class="dv">5</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="left">dt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100013</td>
+<td align="left">shop_09</td>
+<td align="left">2019-03-12 18:05:34</td>
+</tr>
+<tr class="even">
+<td align="right">100026</td>
+<td align="left">shop_01</td>
+<td align="left">2019-03-01 18:09:00</td>
+</tr>
+<tr class="odd">
+<td align="right">100002</td>
+<td align="left">shop_08</td>
+<td align="left">2019-03-07 17:19:27</td>
+</tr>
+<tr class="even">
+<td align="right">100009</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-23 18:57:06</td>
+</tr>
+<tr class="odd">
+<td align="right">100037</td>
+<td align="left">shop_10</td>
+<td align="left">2019-03-06 22:28:48</td>
+</tr>
+<tr class="even">
+<td align="right">100034</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-14 17:38:08</td>
+</tr>
+</tbody>
+</table>
+<p>ここで、<code>shop_id == &quot;shop_05&quot;</code>に<strong>はじめて</strong>訪問する前と後で、ユーザーが各店舗に何回訪問したかを集計したいです:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="right">post</th>
+<th align="right">pre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_02</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="answer-3" class="section level2">
+<h2><span class="header-section-number">4.2</span> Answer</h2>
+<p>いろいろやり方がありますが、こんな感じでもできます:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">5</span>_result &lt;-<span class="st"> </span>df_<span class="dv">5</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(user_id, dt) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(user_id) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">target_flag =</span> <span class="kw">if_else</span>(shop_id <span class="op">==</span><span class="st"> &quot;shop_05&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cum_target =</span> <span class="kw">cumsum</span>(target_flag)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pre_post =</span> <span class="kw">if_else</span>(cum_target <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;pre&quot;</span>, <span class="st">&quot;post&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(user_id, shop_id, pre_post) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">count =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(pre_post, count, <span class="dt">fill =</span> <span class="dv">0</span>)
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(df_<span class="dv">5</span>_result))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="right">post</th>
+<th align="right">pre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_02</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="解説-3" class="section level2">
+<h2><span class="header-section-number">4.3</span> 解説</h2>
+<div id="考え方-3" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> 考え方</h3>
+<p>ログデータを前処理するときに頻出するパターンですが、その状況によってバリエーションが出てきます。このケースでは、<strong>フラグ立てとwindow関数の応用</strong>でいけます。</p>
+<p>流れは以下のとおりです:</p>
+<ol style="list-style-type: decimal">
+<li>user_id, dtで並べ替え</li>
+<li>user単位でgroup by</li>
+<li>ターゲットに訪問したレコード(行)にフラグ(<code>1</code>)を立てる</li>
+<li>ユーザー単位でフラグの累積和を算出</li>
+<li>フラグ累積和が0(つまりまだターゲットに訪問していない)のレコードを<code>pre</code>、それ以外を<code>post</code>とする</li>
+<li>あとはgroup byし直して普通に集計</li>
+</ol>
+<p>ポイントは3-5です。SQLのノウハウでもよく共有されてるやり方をdplyrでトレースしてます。</p>
+</div>
+<div id="手順-3" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> 手順</h3>
+<p>まずは並べ替えてgroup by:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>df_<span class="dv">5</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(user_id, dt) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(user_id)
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="left">dt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-14 21:04:51</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-14 22:52:52</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-16 22:08:02</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-17 19:45:45</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-02-19 18:02:35</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-02-20 20:50:28</td>
+</tr>
+</tbody>
+</table>
+<p>今回の処理では、常にユーザー単位で処理をします。また、時系列で並べ替えておく必要もあるのでこの操作となります。</p>
+<p>次に、ターゲットに訪問しているログを特定します:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">target_flag =</span> <span class="kw">if_else</span>(shop_id <span class="op">==</span><span class="st"> &quot;shop_05&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>))
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res, <span class="dv">20</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="left">dt</th>
+<th align="right">target_flag</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-14 21:04:51</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-14 22:52:52</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-16 22:08:02</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-17 19:45:45</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-02-19 18:02:35</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-02-20 20:50:28</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="left">2019-02-22 19:41:16</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-22 23:51:35</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-02-24 20:27:48</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">2019-02-25 19:16:26</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-26 21:50:13</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-02-26 22:43:49</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-27 21:23:47</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">2019-02-28 19:05:35</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="left">2019-03-04 19:23:41</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-03-04 23:53:19</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-03-04 23:53:47</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-03-05 17:13:47</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-03-06 20:44:25</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-03-06 23:01:55</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>この後に、累積和を算出する<code>dplyr::cumsum</code>を利用します:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cum_target =</span> <span class="kw">cumsum</span>(target_flag))
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res, <span class="dv">20</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="left">dt</th>
+<th align="right">target_flag</th>
+<th align="right">cum_target</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-14 21:04:51</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-14 22:52:52</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-16 22:08:02</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-17 19:45:45</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-02-19 18:02:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-02-20 20:50:28</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="left">2019-02-22 19:41:16</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-22 23:51:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-02-24 20:27:48</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">2019-02-25 19:16:26</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-26 21:50:13</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-02-26 22:43:49</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-27 21:23:47</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">2019-02-28 19:05:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="left">2019-03-04 19:23:41</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-03-04 23:53:19</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-03-04 23:53:47</td>
+<td align="right">0</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-03-05 17:13:47</td>
+<td align="right">1</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-03-06 20:44:25</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-03-06 23:01:55</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<p>この結果を見ればすぐにわかるかと思います。cumsumとかはwindow関数と呼ばれ、mutateの中で活用します。SQLだとover句をイメージしてもらえるとスムーズです。</p>
+<p>このとき、0となっているのは｢まだフラグが立ってない時期(つまり訪問前)のログ｣となりますので、あとはこれを利用してpre-postラベルを準備します:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pre_post =</span> <span class="kw">if_else</span>(cum_target <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;pre&quot;</span>, <span class="st">&quot;post&quot;</span>))
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res, <span class="dv">20</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="left">dt</th>
+<th align="right">target_flag</th>
+<th align="right">cum_target</th>
+<th align="left">pre_post</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-14 21:04:51</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">pre</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-14 22:52:52</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-16 22:08:02</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-17 19:45:45</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-02-19 18:02:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-02-20 20:50:28</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="left">2019-02-22 19:41:16</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-22 23:51:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-02-24 20:27:48</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">2019-02-25 19:16:26</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-26 21:50:13</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-02-26 22:43:49</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-27 21:23:47</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">2019-02-28 19:05:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="left">2019-03-04 19:23:41</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-03-04 23:53:19</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-03-04 23:53:47</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-03-05 17:13:47</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="left">post</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-03-06 20:44:25</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="left">post</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-03-06 23:01:55</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="left">post</td>
+</tr>
+</tbody>
+</table>
+<p>ここまでくれば、あとは集計です:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(user_id, shop_id, pre_post) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">count =</span> <span class="kw">n</span>())
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res, <span class="dv">10</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="left">pre_post</th>
+<th align="right">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">post</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_02</td>
+<td align="left">post</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">post</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">post</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">post</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">post</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">pre</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">post</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_08</td>
+<td align="left">post</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">post</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+<p>さて、ここでログデータお約束の｢ログがないデータは集計できない｣問題が発生します。例えば、｢1回目からshop_05に来たならば、その人のpreログデータは生成されていないので出てこない｣といった状況です。</p>
+<p>この対処法はいくつかあるのですが、今回は面倒だったので<code>spread</code>するときに<code>fill = 0</code>として埋めることにしました:</p>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(pre_post, count, <span class="dt">fill =</span> <span class="dv">0</span>)
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(res, <span class="dv">10</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="right">post</th>
+<th align="right">pre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_02</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="right">5</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_08</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>これで完了です。</p>
+</div>
+</div>
+<div id="応用-3" class="section level2">
+<h2><span class="header-section-number">4.4</span> 応用</h2>
+<p>今回のケースはズバリそのものというシチュエーションは少ないですが、これをベースにいろんな応用ができます。たとえば、｢shop_05への初回訪問以降、ある店を訪問した後に、次に訪問した店を把握できるようなデータがほしい｣という場合には、以下のようになります:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">5</span>_fromto &lt;-<span class="st"> </span>df_<span class="dv">5</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># 並べ替えとユーザー単位でグループ化</span>
+<span class="st">  </span><span class="kw">arrange</span>(user_id, dt) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(user_id) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># フラグ立てとpre-postラベル付与</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">target_flag =</span> <span class="kw">if_else</span>(shop_id <span class="op">==</span><span class="st"> &quot;shop_05&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cum_target =</span> <span class="kw">cumsum</span>(target_flag)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pre_post =</span> <span class="kw">if_else</span>(cum_target <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;pre&quot;</span>, <span class="st">&quot;post&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># lead関数でひとつ下へずらす</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">from_shop_id =</span> shop_id,
+         <span class="dt">to_shop_id =</span> <span class="kw">lead</span>(shop_id)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># preはいらんので取り除く</span>
+<span class="st">  </span><span class="kw">filter</span>(pre_post <span class="op">!=</span><span class="st"> &quot;pre&quot;</span>)
+
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(df_<span class="dv">5</span>_fromto, <span class="dv">20</span>))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">user_id</th>
+<th align="left">shop_id</th>
+<th align="left">dt</th>
+<th align="right">target_flag</th>
+<th align="right">cum_target</th>
+<th align="left">pre_post</th>
+<th align="left">from_shop_id</th>
+<th align="left">to_shop_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-14 22:52:52</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">post</td>
+<td align="left">shop_05</td>
+<td align="left">shop_05</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-02-16 22:08:02</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_05</td>
+<td align="left">shop_03</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-17 19:45:45</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_03</td>
+<td align="left">shop_07</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-02-19 18:02:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_07</td>
+<td align="left">shop_04</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-02-20 20:50:28</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_04</td>
+<td align="left">shop_10</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="left">2019-02-22 19:41:16</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_10</td>
+<td align="left">shop_03</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_03</td>
+<td align="left">2019-02-22 23:51:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_03</td>
+<td align="left">shop_01</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-02-24 20:27:48</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_01</td>
+<td align="left">shop_09</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">2019-02-25 19:16:26</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_09</td>
+<td align="left">shop_06</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-26 21:50:13</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_06</td>
+<td align="left">shop_01</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-02-26 22:43:49</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_01</td>
+<td align="left">shop_06</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_06</td>
+<td align="left">2019-02-27 21:23:47</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_06</td>
+<td align="left">shop_09</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_09</td>
+<td align="left">2019-02-28 19:05:35</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_09</td>
+<td align="left">shop_10</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_10</td>
+<td align="left">2019-03-04 19:23:41</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">post</td>
+<td align="left">shop_10</td>
+<td align="left">shop_05</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-03-04 23:53:19</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="left">post</td>
+<td align="left">shop_05</td>
+<td align="left">shop_07</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_07</td>
+<td align="left">2019-03-04 23:53:47</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="left">post</td>
+<td align="left">shop_07</td>
+<td align="left">shop_05</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_05</td>
+<td align="left">2019-03-05 17:13:47</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="left">post</td>
+<td align="left">shop_05</td>
+<td align="left">shop_04</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-03-06 20:44:25</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="left">post</td>
+<td align="left">shop_04</td>
+<td align="left">shop_04</td>
+</tr>
+<tr class="odd">
+<td align="right">100001</td>
+<td align="left">shop_04</td>
+<td align="left">2019-03-06 23:01:55</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="left">post</td>
+<td align="left">shop_04</td>
+<td align="left">shop_01</td>
+</tr>
+<tr class="even">
+<td align="right">100001</td>
+<td align="left">shop_01</td>
+<td align="left">2019-03-06 23:30:15</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="left">post</td>
+<td align="left">shop_01</td>
+<td align="left">shop_02</td>
+</tr>
+</tbody>
+</table>
+<p>あとは集計したりネットワーク分析をしたりと利活用できるでしょう。</p>
+</div>
+<div id="参考資料-4" class="section level2">
+<h2><span class="header-section-number">4.5</span> 参考資料</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="04_case_four.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+---
+title: ケース4
+---
+
+# Case 4: window関数問題
+
+```{r 05_setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE,
+                      echo = TRUE,
+                      comment = "#> ",
+                      collapse = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+library(tidyverse)
+```
+
+
+## Question 4
+
+以下のようなログデータがあります:
+
+```{r}
+library(tidyverse)
+library(lubridate)
+set.seed(57)
+n = 1000
+df_5 <- data.frame(
+  user_id = 100000 + sample(1:50, n, replace = TRUE),
+  shop_id = sample(paste("shop", str_pad(1:10, width = 2, pad = "0"), sep = "_"), n, replace = TRUE),
+  dt = ymd_hms("2019-02-14 00:00:00") +
+    days(sample(0:27, n, replace = TRUE)) +
+    hours(sample(17:23, n, replace = TRUE)) +
+    minutes(sample(0:59, n, replace = TRUE)) +
+    seconds(sample(0:59, n, replace = TRUE))
+)
+
+knitr::kable(head(df_5))
+```
+
+ここで、`shop_id == "shop_05"`に**はじめて**訪問する前と後で、ユーザーが各店舗に何回訪問したかを集計したいです:
+
+```{r, echo=FALSE}
+df_5_result <- df_5 %>% 
+  arrange(user_id, dt) %>% 
+  group_by(user_id) %>% 
+  mutate(target_flag = if_else(shop_id == "shop_05", 1, 0)) %>% 
+  mutate(cum_target = cumsum(target_flag)) %>% 
+  mutate(pre_post = if_else(cum_target == 0, "pre", "post")) %>% 
+  group_by(user_id, shop_id, pre_post) %>% 
+  summarise(count = n()) %>%
+  spread(pre_post, count, fill = 0)
+knitr::kable(head(df_5_result))
+```
+
+## Answer
+
+いろいろやり方がありますが、こんな感じでもできます:
+
+```{r}
+df_5_result <- df_5 %>% 
+  arrange(user_id, dt) %>% 
+  group_by(user_id) %>% 
+  mutate(target_flag = if_else(shop_id == "shop_05", 1, 0)) %>% 
+  mutate(cum_target = cumsum(target_flag)) %>% 
+  mutate(pre_post = if_else(cum_target == 0, "pre", "post")) %>% 
+  group_by(user_id, shop_id, pre_post) %>% 
+  summarise(count = n()) %>%
+  spread(pre_post, count, fill = 0)
+
+knitr::kable(head(df_5_result))
+```
+
+## 解説
+
+### 考え方
+
+ログデータを前処理するときに頻出するパターンですが、その状況によってバリエーションが出てきます。このケースでは、**フラグ立てとwindow関数の応用**でいけます。
+
+流れは以下のとおりです:
+
+1. user_id, dtで並べ替え
+2. user単位でgroup by
+3. ターゲットに訪問したレコード(行)にフラグ(`1`)を立てる
+4. ユーザー単位でフラグの累積和を算出
+5. フラグ累積和が0(つまりまだターゲットに訪問していない)のレコードを`pre`、それ以外を`post`とする
+6. あとはgroup byし直して普通に集計
+
+ポイントは3-5です。SQLのノウハウでもよく共有されてるやり方をdplyrでトレースしてます。
+
+### 手順
+
+まずは並べ替えてgroup by:
+
+```{r}
+res <- df_5 %>% 
+  arrange(user_id, dt) %>% 
+  group_by(user_id)
+
+knitr::kable(head(res))
+```
+
+今回の処理では、常にユーザー単位で処理をします。また、時系列で並べ替えておく必要もあるのでこの操作となります。
+
+次に、ターゲットに訪問しているログを特定します:
+
+```{r}
+res <- res %>% 
+  mutate(target_flag = if_else(shop_id == "shop_05", 1, 0))
+
+knitr::kable(head(res, 20))
+```
+
+この後に、累積和を算出する`dplyr::cumsum`を利用します:
+
+```{r}
+res <- res %>% 
+  mutate(cum_target = cumsum(target_flag))
+
+knitr::kable(head(res, 20))
+```
+
+この結果を見ればすぐにわかるかと思います。cumsumとかはwindow関数と呼ばれ、mutateの中で活用します。SQLだとover句をイメージしてもらえるとスムーズです。
+
+このとき、0となっているのは｢まだフラグが立ってない時期(つまり訪問前)のログ｣となりますので、あとはこれを利用してpre-postラベルを準備します:
+
+```{r}
+res <- res %>% 
+    mutate(pre_post = if_else(cum_target == 0, "pre", "post"))
+
+knitr::kable(head(res, 20))
+```
+
+ここまでくれば、あとは集計です:
+
+```{r}
+res <- res %>% 
+  group_by(user_id, shop_id, pre_post) %>% 
+  summarise(count = n())
+
+knitr::kable(head(res, 10))
+```
+
+さて、ここでログデータお約束の｢ログがないデータは集計できない｣問題が発生します。例えば、｢1回目からshop_05に来たならば、その人のpreログデータは生成されていないので出てこない｣といった状況です。
+
+この対処法はいくつかあるのですが、今回は面倒だったので`spread`するときに`fill = 0`として埋めることにしました:
+
+```{r}
+res <- res %>% 
+  spread(pre_post, count, fill = 0)
+
+knitr::kable(head(res, 10))
+```
+
+これで完了です。
+
+## 応用
+
+今回のケースはズバリそのものというシチュエーションは少ないですが、これをベースにいろんな応用ができます。たとえば、｢shop_05への初回訪問以降、ある店を訪問した後に、次に訪問した店を把握できるようなデータがほしい｣という場合には、以下のようになります:
+
+```{r}
+df_5_fromto <- df_5 %>% 
+  # 並べ替えとユーザー単位でグループ化
+  arrange(user_id, dt) %>% 
+  group_by(user_id) %>% 
+  # フラグ立てとpre-postラベル付与
+  mutate(target_flag = if_else(shop_id == "shop_05", 1, 0)) %>% 
+  mutate(cum_target = cumsum(target_flag)) %>% 
+  mutate(pre_post = if_else(cum_target == 0, "pre", "post")) %>% 
+  # lead関数でひとつ下へずらす
+  mutate(from_shop_id = shop_id,
+         to_shop_id = lead(shop_id)) %>% 
+  # preはいらんので取り除く
+  filter(pre_post != "pre")
+
+knitr::kable(head(df_5_fromto, 20))
+```
+
+
+あとは集計したりネットワーク分析をしたりと利活用できるでしょう。
+
+## 参考資料
+

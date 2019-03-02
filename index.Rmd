@@ -1,0 +1,16 @@
+---
+title: データハンドリングFAQ
+author: 前田和寛(@kazutan)
+date: "2019-03-02"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+---
+
+# はじめに {-}
+
+これはSappoRo.R #9 にて同タイトルで発表した内容です。本編は次のページ以降になります
+
+## 参考資料 {-}
+
+WIP...

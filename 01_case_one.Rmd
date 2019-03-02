@@ -1,0 +1,148 @@
+---
+title: ケース1
+---
+
+# Case 1: multi-gather/spread問題
+
+```{r 01_setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE,
+                      echo = TRUE,
+                      comment = "#> ",
+                      collapse = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+library(tidyverse)
+```
+
+
+## Question 1
+
+以下のようなデータがあります:
+
+```{r}
+# 資料を読んでる人が再現できるように、データ生成用コードも残しときます
+n = 30
+df_1 <- data.frame(
+  id = rep(1:10, each = 3),
+  group = rep(letters[1:3], 10),
+  x_pre = round(rnorm(n) * 100),
+  x_post = round(rnorm(n, 1, 1) * 100),
+  y_pre = round(rnorm(n, 2, 3) * 100),
+  y_post = round(rnorm(n, 3, 1) * 100)
+)
+knitr::kable(head(df_1))
+```
+
+これを、以下のようにしたいです:
+
+```{r, echo=FALSE}
+df_1_result <-df_1 %>% 
+  gather(key = var_name, value = value, -c(id, group)) %>% 
+  separate(var_name, c("var", "pre_post")) %>% 
+  unite(new_var, group, var) %>% 
+  spread(key = new_var, value = value)
+knitr::kable(head(df_1_result))
+```
+
+どうしたらいいのでしょうか?
+
+## Answer
+
+以下のようにやります:
+
+```{r}
+library(tidyverse)
+df_1_result <-df_1 %>% 
+  gather(key = var_name, value = value, -c(id, group)) %>% 
+  separate(var_name, c("var", "pre_post")) %>% 
+  unite(new_var, group, var) %>% 
+  spread(key = new_var, value = value)
+knitr::kable(head(df_1_result))
+```
+
+## 解説
+
+### 考え方
+
+通称｢multi-gather, multi-spread問題｣の一種です。
+
+wide-long変換をするには`tidyr::gather`や`tidyr::spread`を使えばいいのですが、今回は単純にそれらを使うだけではうまく行きません。そこで以下のようなアプローチをします:
+
+1. 一旦tidyなデータ(long data)に整形
+1. 変数名を切り離す
+2. 目的の変数名を作成
+3. 新たに作った変数名をkeyにしてwideに展開
+
+### 手順
+
+まずはgather:
+
+```{r}
+res <- df_1 %>% 
+  gather(key = var_name, value = value, -c(id, group))
+knitr::kable(head(res))
+```
+
+ここからがポイントで、**当初の変数名を2つに切り離します**:
+
+```{r}
+res <- res %>% 
+  separate(var_name, c("var", "pre_post"))
+knitr::kable(head(res))
+```
+
+これで要素がちゃんと分かれたデータになりました。そして**目的の変数名になるようひっつけます**:
+
+```{r}
+res <- res %>% 
+  unite(new_var, group, var)
+knitr::kable(head(res))
+```
+
+あとはこの変数名の列をkeyとしてwideにします:
+
+```{r}
+res <- res %>% 
+  spread(key = new_var, value = value)
+knitr::kable(head(res))
+```
+
+これでOKです。
+
+### 応用
+
+今回はvalueにあたるデータが全て数値だったのでスムーズでしたが、型が違う場合もあります:
+
+```{r}
+n = 30
+df_1a <- data.frame(
+  id = rep(1:10, each = 3),
+  group = rep(letters[1:3], 10),
+  x_pre = round(rnorm(n) * 100),
+  x_post = round(rnorm(n, 1, 1) * 100),
+  y_pre = sample(c("kosaki", "chitoge"), n, replace = TRUE, prob = c(5, 5)),
+  y_post = sample(c("kosaki", "chitoge"), n, replace = TRUE, prob = c(9, 1))
+)
+knitr::kable(head(df_1a))
+```
+
+この場合、まずは気にせずに同じように整形し、あとから列の型を変更すればOKです
+
+```{r}
+res_a <- df_1a %>% 
+  # このときvalueがcharacter型になる
+  gather(key = var_name, value = value, -c(id, group)) %>% 
+  # 気にせず処理
+  separate(var_name, c("var", "pre_post")) %>% 
+  unite(new_var, group, var) %>% 
+  spread(new_var, value) %>% 
+  # 数値にしたい列を変換
+  mutate_at(vars(ends_with("_x")), as.numeric)
+
+knitr::kable(head(res_a))
+```
+
+以上です。なお個人的には全てtidyにしたいです。
+
+## 参考資料
+
